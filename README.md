@@ -83,9 +83,9 @@ for more information.
 
 On the `project/plugins.sbt` files add the following lines:
 
-    resolvers += "cloudbees snapshots" at "https://repository-belfry.forge.cloudbees.com/snapshot"
+    resolvers += "belfry release" at "https://repository-belfry.forge.cloudbees.com/release"
 
-    addSbtPlugin("com.starkengine" % "texture-packer-plugin" % "0.1-SNAPSHOT")
+    addSbtPlugin("com.starkengine" % "texture-packer-plugin" % "0.1")
 
 The plugin is now part of the project but still won't do anything. Next step is to actually add it to the settings of
 the project.
