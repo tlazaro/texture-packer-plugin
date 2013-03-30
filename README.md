@@ -19,7 +19,7 @@ Also in some graphic cards it is required that textures have a width and height 
 1024x1024). It is a waste of time to keep track of all your images making sure they fulfill that requirement. The
 TexturePacker packages images in that way by default, releasing us from that problem.
 
-More information [here | http://code.google.com/p/libgdx/wiki/TexturePacker].
+More information [here](http://code.google.com/p/libgdx/wiki/TexturePacker).
 
 The plugin
 ----------
@@ -28,7 +28,7 @@ The plugin provides a task that runs the TexturePacker. That task uses sbt's bui
 and output. That means the task remembers what input it was fed and the output it produced. Running it multiple times
 without changing either will not trigger the TexturePacker process more than once.
 
-It also hooks the task into the standard sbt 'package' task (named packageBin). That means that every time the application
+It also hooks the task into the standard sbt `package` task. That means that every time the application
 runs it will trigger the TexturePacker task and package images. That way every time the images change the application
 content will be up to date. If nothing changed it will run immediately.
 
@@ -43,8 +43,8 @@ files will be processed or derivatives and others will the original. SBT expects
 specific folder. It is not a good idea to have everything mixed up. It is also a problem for version control systems to
 not separate those files.
 
-WARNING: The plugin assumes the final 'resources' folder to be disposable (the one SBT will look for resources to package into
-the jars). As such there is a hook on the 'clean' task that will delete all the files in that folder. Make sure you move
+WARNING: The plugin assumes the final resources folder to be disposable (the one SBT will look for resources to package into
+the jars). As such there is a hook on the `clean` task that will delete all the files in that folder. Make sure you move
 your files out of that folder before using the plugin.
 
 The input files to be processed are designated as such by being placed in the ''managedAssets'' folder. Sometimes
@@ -52,8 +52,8 @@ there are images that are used in different ways and we may not want to process 
 that are ignored by the TexturePacker. Such files that are input but are not meant to be processed should be placed in
 the ''managedAssets'' folder.
 
-The output folder is the 'assets' folder and should match with a folder that SBT expects to find resources to be
-packaged. Usually ''src/main/resources''. That is the folder that will be subject to deletion.
+The output folder is the `assets` folder and should match with a folder that SBT expects to find resources to be
+packaged. Usually `src/main/resources`. That is the folder that will be subject to deletion.
 
 These are the corresponding settings with their default values:
 
@@ -61,7 +61,7 @@ These are the corresponding settings with their default values:
     managedAssets := file("common/src/main/preprocess")
     assets := file("common/src/main/resources")
 
-Notice that you may override them as you please. The default is based on the [ibgdx-sbt-project | https://github.com/ajhager/libgdx-sbt-project.g8]
+Notice that you may override them as you please. The default is based on the [ibgdx-sbt-project](https://github.com/ajhager/libgdx-sbt-project.g8)
 template. That templates shows the best way to use LibGdx with SBT and Scala.
 
 Ignoring the output folder
@@ -78,10 +78,10 @@ Using the plugin
 Project configuration
 ---------------------
 
-First step is to add the plugin to the current project. Read the [SBT documentation on Plugins | http://www.scala-sbt.org/release/docs/Extending/Plugins#using-a-binary-sbt-plugin]
+First step is to add the plugin to the current project. Read the [SBT documentation on Plugins](http://www.scala-sbt.org/release/docs/Extending/Plugins#using-a-binary-sbt-plugin)
 for more information.
 
-On the ''project/plugins.sbt'' files add the following lines:
+On the `project/plugins.sbt` files add the following lines:
 
     resolvers += "cloudbees snapshots" at "https://repository-belfry.forge.cloudbees.com/snapshot"
 
@@ -90,7 +90,7 @@ On the ''project/plugins.sbt'' files add the following lines:
 The plugin is now part of the project but still won't do anything. Next step is to actually add it to the settings of
 the project.
 
-Assuming the ''project/build.scala'' looks something like this:
+Assuming the `project/build.scala` looks something like this:
 
     import com.starkengine.TexturePackerPlugin
 
@@ -120,7 +120,7 @@ First time running
 
 The plugin actually needs the gdx.jar and the gdx-tools.jar to be able to run. Since none are on the official maven
 repository it has to be done manually. There is a task that comes in the settings of the plugin that will be available
-on the project you add those settings to. The task to be run from SBT is ''update-texture-packer-gdx''.
+on the project you add those settings to. The task to be run from SBT is `update-texture-packer-gdx`.
 
 What that task does it simply downloading the latest nightly build and unpackage those two jars into the ''project/lib''
 folder so it can use it. Notice that it doesn't affect the gdx version the rest of your application uses. Those jars are
@@ -132,5 +132,5 @@ is roughly 45MB. The plugin only uses two jars that amount to 3.3 MB.
 Ready
 -----
 
-Now the project is ready. Just run it or trigger ''package'' in your project and watch the packager go. Verify your
+Now the project is ready. Just run it or trigger `package` in your project and watch the packager go. Verify your
 images and resources end up in the destination folder.
