@@ -1,17 +1,25 @@
 import sbt._
 import sbt.Keys._
+import eu.diversit.sbt.plugin.WebDavPlugin._
 
 object TexturePackerPluginBuild extends Build {
-  val sharedSettings = Seq[Setting[_]](
-    resolvers += "cloudbees snapshots" at "https://repository-belfry.forge.cloudbees.com/snapshot",
+  lazy val publishSettings = WebDav.scopedSettings ++ Seq[Project.Setting[_]](
+    version := "0.1",
+    publishMavenStyle := true,
+    publishTo <<= (version) {
+      version: String =>
+        val cloudbees = "https://repository-belfry.forge.cloudbees.com/"
+        if (version.trim.endsWith("SNAPSHOT")) Some("snapshot" at cloudbees + "snapshot/")
+        else                                   Some("release"  at cloudbees + "release/")
+    },
     credentials += {
-      val credsFile = (Path.userHome / ".ivy2" / ".credentials")
+      val credsFile = (Path.userHome / ".credentials")
       (if (credsFile.exists) Credentials(credsFile)
-       else Credentials(file("/private/belfry/.credentials/.credentials")))
+      else Credentials(file("/private/belfry/.credentials/.credentials")))
     }
   )
 
-  lazy val root = Project("root", file(".")) settings(sharedSettings ++ Seq(
+  lazy val root = Project("root", file(".")) settings(publishSettings ++ Seq(
     name := "texture-packer-plugin",
     organization := "com.starkengine",
     sbtPlugin := true,
