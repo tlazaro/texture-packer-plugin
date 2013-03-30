@@ -39,11 +39,11 @@ Read before using or risk losing files
 ======================================
 
 Resources in a project are not only images. Text files, sounds, fonts, etc may be found as the resources. Thus some
-files will be processed or derivatives and others will the original. SBT expects all resources to be placed in a
+files will be processed or derivatives and others will be the original. SBT expects all resources to be placed in a
 specific folder. It is not a good idea to have everything mixed up. It is also a problem for version control systems to
 not separate those files.
 
-WARNING: The plugin assumes the final resources folder to be disposable (the one SBT will look for resources to package into
+**WARNING**: The plugin assumes the final resources folder to be disposable (the one SBT will look for resources to package into
 the jars). As such there is a hook on the `clean` task that will delete all the files in that folder. Make sure you move
 your files out of that folder before using the plugin.
 
