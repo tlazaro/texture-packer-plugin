@@ -7,6 +7,7 @@ object TexturePackerPlugin extends Plugin {
   val unmanagedAssets = SettingKey[File]("unmanaged-assets")
   val managedAssets = SettingKey[File]("managed-assets")
   val assets = SettingKey[File]("assets")
+  val texturePackerCache = SettingKey[File]("texture-packer-cache")
 
   private val FilePattern = """(.*)\.(.*)$""".r
   val ExcludedExtensions = Set("png", "jpg", "jpeg")
@@ -47,11 +48,9 @@ object TexturePackerPlugin extends Plugin {
 
   /* Texture Packer */
   val processManagedAssets = TaskKey[Unit]("process-managed-assets", "Runs libgdx's Texture Packer 2 on the managed-assets folder")
-  val processManagedAssetsTask = processManagedAssets <<= (assets, managedAssets) map {
-    (outputDir, inputDir) =>
-      val cacheDir = file("target/texture-packer-cache") /* Store cache information here */
-
-      /* Get all direct subdirectories of inputDir */
+  val processManagedAssetsTask = processManagedAssets <<= (assets, managedAssets, texturePackerCache) map {
+    (outputDir, inputDir, cacheDir) =>
+    /* Get all direct subdirectories of inputDir */
       val folders = inputDir.asFile.listFiles.filter(_.isDirectory)
 
       folders.foreach {
@@ -129,10 +128,12 @@ object TexturePackerPlugin extends Plugin {
     unmanagedAssets := file("common/src/main/unmanaged"),
     managedAssets := file("common/src/main/preprocess"),
     assets := file("common/src/main/resources"),
+    texturePackerCache := file("target/texture-packer-cache"),
     processManagedAssetsTask,
     processUnmanagedAssetsTask,
     updateLibgdxTask,
     cleanFiles <+= assets { x => x },
+    cleanFiles <+= texturePackerCache { x => x },
     packageBin in Compile <<= packageBin in Compile dependsOn(processManagedAssets, processUnmanagedAssets)
   )
 }
