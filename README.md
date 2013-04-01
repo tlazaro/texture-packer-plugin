@@ -129,6 +129,30 @@ only used by the build project.
 Remember it could could be done manually if you prefer. The download may take a while since the nightly builds package
 is roughly 45MB. The plugin only uses two jars that amount to 3.3 MB.
 
+Placing your resources
+----------------------
+
+The process that runs the TexturePacker command will fire it for each folder tree inside the `managedAssets` folder.
+That means that each of those sub-trees will end up in a different texture atlas. So you must have a tree structure like
+this:
+
+    common/src/main/preprocess
+    |-- gui
+    |   |-- screen1
+    |   |   `-- screen1.png
+    |   `-- screen2
+    |       `-- screen2.png
+    |-- characters
+    |   |-- mario.png
+    |   `-- luigi.png
+    `-- items
+        |-- star.png
+        `-- mushroom.png
+    
+That setup will produce an atlas for each: `gui.atlas`, `characters.atlas` and `items.atlas`. Do not place images laying around
+in the root of `preprocess` as those files will be ignored. Files nested deep into these folders will still end up in the
+mentioned atlases. To know how to use those atlases follow the usual LibGdx practices.
+
 Ready
 -----
 
