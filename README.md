@@ -81,11 +81,11 @@ Project configuration
 First step is to add the plugin to the current project. Read the [SBT documentation on Plugins](http://www.scala-sbt.org/release/docs/Extending/Plugins#using-a-binary-sbt-plugin)
 for more information.
 
+The plugin is already staged on Sonatype and is pending approval to be allowed in Maven Central.
+
 On the `project/plugins.sbt` files add the following lines:
 
-    resolvers += "belfry release" at "https://repository-belfry.forge.cloudbees.com/release"
-
-    addSbtPlugin("com.starkengine" % "texture-packer-plugin" % "0.1")
+    addSbtPlugin("com.starkengine" % "texture-packer-plugin" % "0.2")
 
 The plugin is now part of the project but still won't do anything. Next step is to actually add it to the settings of
 the project.
