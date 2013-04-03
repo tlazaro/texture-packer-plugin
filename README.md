@@ -81,9 +81,9 @@ Project configuration
 First step is to add the plugin to the current project. Read the [SBT documentation on Plugins](http://www.scala-sbt.org/release/docs/Extending/Plugins#using-a-binary-sbt-plugin)
 for more information.
 
-The plugin is already staged on Sonatype and is pending approval to be allowed in Maven Central.
+The plugin is now hosted on Maven Central so there is no need to add a resolver.
 
-On the `project/plugins.sbt` files add the following lines:
+On the `project/plugins.sbt` file add the following line:
 
     addSbtPlugin("com.starkengine" % "texture-packer-plugin" % "0.2")
 
