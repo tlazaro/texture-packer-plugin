@@ -1,5 +1,6 @@
 package com.starkengine
 
+import com.badlogic.gdx.tools.texturepacker.TexturePacker
 import sbt._
 import sbt.Keys._
 
@@ -77,7 +78,7 @@ object TexturePackerPlugin extends Plugin {
 
     // Run Texture Packer
     val args = Array(subfolder.toString, outFolder.toString, subfolder.getName)
-    com.badlogic.gdx.tools.imagepacker.TexturePacker2.main(args)
+    TexturePacker.main(args)
 
     Set[File]()
   }
